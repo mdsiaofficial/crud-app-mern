@@ -1,11 +1,17 @@
+// load env var
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
 const mongoose = require("mongoose");
-module.exports = async () => {
+const connectToDb = async () => {
   // Connect to your MongoDB database here
-  console.log(`hello`);
+  
   try {
     await mongoose.connect(process.env.DB_URL);
-    
+    console.log(`Connected to database.`);
   } catch (error) {
     console.log(error);
   }
 };
+
+module.exports = connectToDb;
