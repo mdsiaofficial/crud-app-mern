@@ -30,7 +30,10 @@ app.get("/", (req, res) => {
 // notes //
 app.get("/notes", async (req, res) => {
   console.log("Notes here...");
-  res.status(201).send("Notes here...");
+  // find the notes
+  const notes = await Note.find();
+  // res.status(201).send("Notes here...");
+  res.status(201).json({ notes: notes });
 });
 
 // new notes //
@@ -50,6 +53,48 @@ app.post("/notes", async (req, res) => {
   });
 });
 
+// find specific note //
+app.get("/notes/:id", async (req, res) => {
+  // get id off the url
+  const noteId = req.params.id;
+  // find the note using if
+  const note = await Note.findById(noteId);
+  // res the note
+  res.status(202).json({
+    note: note
+  });
+});
+
+// update
+app.put(("/notes/:id"), async (req, res) => {
+  // get id
+  const noteId = req.params.id;
+  const { title, body } = req.body;
+  // find and update
+  const note = await Note.findByIdAndUpdate(noteId, {
+    title: title,
+    body: body
+  }, { new: true }); // way 1 - cmd here to replace the old one
+
+  console.log(note);
+
+  // way 2 - find updated
+  // const updatedNote = await Note.findById(noteId);
+  
+  // res new note
+  res.status(202).json({ note: note });
+})
+
+// delete
+app.delete(("/notes/:id"), async (req, res) => {
+  // get id
+  const noteId = req.params.id;
+
+  // find and delete
+  await Note.deleteOne({ _id: noteId }); 
+  // res
+  res.status(202).json({ message: "deleted" });
+})
 
 // start server
 app.listen(process.env.PORT, () => {
