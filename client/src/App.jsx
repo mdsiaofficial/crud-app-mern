@@ -11,33 +11,42 @@ function App() {
   });
 
 
+  // fetch 
   const fetchNotes = async () => {
-    // fetch 
     const res = await axios.get("http://localhost:3000/notes");
     setNotes(res.data.notes);
     console.log(res);
   };
 
+  // useEffect
   useEffect(() => {
     fetchNotes();
   }, []);
 
-  // update form
+  // update form - not using
   const updateCreateFormField = (e) => {
     console.log("form update");
     const { name, value } = e.target;
+    console.log("update: ", name, value);
+    console.log("update: ", createForm);
     setCreateForm({ ...createForm, [name]: value });
+    console.log("update: ", createForm);
   };
 
+  // create note
   const createNote = async (e) => {
     e.preventDefault();
-
-    const res = await axios.post("http://localhost:3000/notes", createForm);
+    // console.log(e.target.title.value);
+    // console.log(e.target.body.value);
+    
+    const newNote = { title: e.target.title.value, body: e.target.body.value };
+    // const res = await axios.post("http://localhost:3000/notes", createForm);
+    const res = await axios.post("http://localhost:3000/notes", newNote);
     setNotes([...notes, res.data.note]);
     console.log(res);
 
     // clear state
-    setCreateForm({ title: "", body: "" });
+    // setCreateForm({ title: "", body: "" });
 
   }
 
@@ -63,9 +72,15 @@ function App() {
       <div className='m-10'>
         <h2>Create Note</h2>
 
-        <form action="" onSubmit={createNote} className='flex flex-col gap-2'>
+        {/* <form action="" onSubmit={createNote} className='flex flex-col gap-2'>
           <input onChange={updateCreateFormField} type="text" name='title' />
           <input onChange={updateCreateFormField} value={createForm.body} type="text" name='body' />
+          <button type='submit'>Add note</button>
+        </form> */}
+
+        <form action="" onSubmit={createNote} className='flex flex-col gap-2'>
+          <input type="text" name='title' />
+          <input type="text" name='body' />
           <button type='submit'>Add note</button>
         </form>
       </div>
