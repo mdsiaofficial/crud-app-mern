@@ -6,7 +6,7 @@ const home = (req, res) => {
 
 const fetchNotes = async (req, res) => {
   console.log("Notes here...");
-  // find the notes
+  // find the notes # tag-9
   const notes = await Note.find();
   // res.status(201).send("Notes here...");
   res.status(201).json({ notes: notes });
@@ -16,7 +16,7 @@ const createNote = async (req, res) => {
   // 1 - get the sent in data from frontend to backend
   const { title, body } = req.body;
   console.log(title, body);
-  // 2 - create a note
+  // 2 - create a note # tag-10
   const newNote = await Note.create({
     title,
     body,
@@ -43,7 +43,7 @@ const updateNote = async (req, res) => {
   // get id
   const noteId = req.params.id;
   const { title, body } = req.body;
-  // find and update
+  // find and update # tag-11
   const note = await Note.findByIdAndUpdate(noteId, {
     title: title,
     body: body
@@ -51,18 +51,19 @@ const updateNote = async (req, res) => {
 
   console.log(note);
 
-  // way 2 - find updated
+  // way 2 - find updated # tag-12
   // const updatedNote = await Note.findById(noteId);
   
   // res new note
   res.status(202).json({ note: note });
 }
 
+// delete note
 const deleteNote = async (req, res) => {
   // get id
   const noteId = req.params.id;
 
-  // find and delete
+  // find and delete # tag-13
   await Note.deleteOne({ _id: noteId }); 
   // res
   res.status(202).json({ message: "deleted" });

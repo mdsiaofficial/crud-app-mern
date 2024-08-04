@@ -10,6 +10,5 @@ const noteSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-Note = mongoose.model('Note', noteSchema);
-
-module.exports = Note;
+// Create a model for our notes collection # tag-8
+module.exports = Note = mongoose.model('Note', noteSchema);;
