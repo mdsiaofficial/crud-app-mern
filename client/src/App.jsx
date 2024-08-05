@@ -11,6 +11,12 @@ function App() {
     body: ""
   });
 
+  const [updateForm, setUpdateForm] = useState({
+    _id: null,
+    title: "",
+    body: ""
+  });
+
 
   // fetch # tag-1
   const fetchNotes = async () => {
@@ -39,7 +45,7 @@ function App() {
     e.preventDefault();
     // console.log(e.target.title.value);
     // console.log(e.target.body.value);
-    
+
     const newNote = { title: e.target.title.value, body: e.target.body.value };
 
     // # tag-5
@@ -63,12 +69,35 @@ function App() {
     setNotes(newNote);
   }
 
+  const handleUpdateFieldChange = async (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    // console.log(e.target.title.value);
+    // console.log(e.target.body.value);
+    // console.log(e.target);
+    
+    // const newNote = { title: e.target.title.value, body: e.target.body.value };
+    // const res = await axios.put(`http://localhost:3000/notes/${_id}`, newNote);
+    // setNotes([...notes, res.data.note]);
+    // console.log(res);
+    setUpdateForm({
+      ...updateForm,
+      [name]: value,
+    })
+
+  }
+
+  const toggleUpdate = (note) => {
+    // get current note
+    
+    // set stat on update
+  }
   return (
     <>
       <h1>Hi Crud</h1>
       <div className='m-10'>
         <h2>Create Note</h2>
-        {/* using updateCreateFormField # tag-7 */} 
+        {/* using updateCreateFormField # tag-7 */}
         {/* <form action="" onSubmit={createNote} className='flex flex-col gap-2'>
           <input onChange={updateCreateFormField} type="text" name='title' />
           <input onChange={updateCreateFormField} value={createForm.body} type="text" name='body' />
@@ -80,12 +109,23 @@ function App() {
           <input type="text" name='title' />
           {/* <input type="text" name='body' /> */}
           <textarea name="body" id="body"></textarea>
-          <button type='submit'>Add note</button> 
+          <button type='submit'>Add note</button>
+
         </form>
       </div>
 
-      {/*  */}
-      <div className="border-2 bg-slate-600 p-10">
+      {/* udpate */}
+      <div className="">
+        <h2>Update note</h2>
+        <form action="" onSubmit="" className='flex flex-col gap-2'>
+          <input onChange={handleUpdateFieldChange} type="text" name='title' />
+          <textarea onChange={handleUpdateFieldChange} name="body" id="body"></textarea>
+          <button type='submit'>Update note</button>
+        </form>
+      </div>
+
+      {/*  list */}
+      <div className="border-2 min-w-[1080px] bg-slate-600 p-10">
         {
           notes &&
           notes.map((note) => (
@@ -95,14 +135,17 @@ function App() {
                 <h4>{note.body}</h4>
               </div>
               {/* using deleteNote function # tag-10 */}
-              <button onClick={() => deleteNote(note._id)}>Delete</button>
+              <div className="flex gap-3">
+                <button onClick={() => deleteNote(note._id)}>Delete</button>
+                <button onClick={() => toggleUpdate(note)}>Update note</button>
+              </div>
             </div>
           ))
         }
       </div>
 
 
-      
+
     </>
   )
 }
