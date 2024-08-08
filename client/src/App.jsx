@@ -6,11 +6,14 @@ import './App.css'
 const notesRoute = "http://localhost:3000/notes";
 function App() {
   const [notes, setNotes] = useState(null);
+
+  // to replace create input field
   const [createForm, setCreateForm] = useState({
     title: "",
     body: ""
   });
 
+  // to replace update input field
   const [updateForm, setUpdateForm] = useState({
     _id: null,
     title: "",
@@ -32,10 +35,10 @@ function App() {
 
   // update form - not using # tag-3
   const updateCreateFormField = (e) => {
-    console.log("form update");
+    // console.log("form update");
     const { name, value } = e.target;
-    console.log("update: ", name, value);
-    console.log("update: ", createForm);
+    // console.log("update: ", name, value);
+    // console.log("update: ", createForm);
     setCreateForm({ ...createForm, [name]: value });
     console.log("update: ", createForm);
   };
@@ -55,7 +58,7 @@ function App() {
     console.log(res);
 
     // clear state # tag-6
-    // setCreateForm({ title: "", body: "" });
+    setCreateForm({ title: "", body: "" });
 
   }
 
@@ -98,28 +101,28 @@ function App() {
       <div className='m-10'>
         <h2>Create Note</h2>
         {/* using updateCreateFormField # tag-7 */}
+        <form action="" onSubmit={createNote} className='flex flex-col gap-2'>
+          <input value={createForm.title} onChange={updateCreateFormField} type="text" name='title' />
+          <textarea value={createForm.body} onChange={updateCreateFormField} type="text" name='body' />
+          <button type='submit'>Add note</button>
+        </form>
+
+        {/* using direcly useState to create new note # tag-8 */}
         {/* <form action="" onSubmit={createNote} className='flex flex-col gap-2'>
-          <input onChange={updateCreateFormField} type="text" name='title' />
-          <input onChange={updateCreateFormField} value={createForm.body} type="text" name='body' />
+          <input type="text" name='title' />
+          <textarea name="body" id="body"></textarea>
           <button type='submit'>Add note</button>
         </form> */}
 
-        {/* using direcly useState to create new note # tag-8 */}
-        <form action="" onSubmit={createNote} className='flex flex-col gap-2'>
-          <input type="text" name='title' />
-          {/* <input type="text" name='body' /> */}
-          <textarea name="body" id="body"></textarea>
-          <button type='submit'>Add note</button>
-
-        </form>
+        
       </div>
 
       {/* udpate */}
       <div className="">
         <h2>Update note</h2>
         <form action="" onSubmit="" className='flex flex-col gap-2'>
-          <input onChange={handleUpdateFieldChange} type="text" name='title' />
-          <textarea onChange={handleUpdateFieldChange} name="body" id="body"></textarea>
+          <input value={updateForm.title} onChange={handleUpdateFieldChange} type="text" name='title' />
+          <textarea value={updateForm.body} onChange={handleUpdateFieldChange} name="body" id="body"></textarea>
           <button type='submit'>Update note</button>
         </form>
       </div>
