@@ -101,7 +101,7 @@ function App() {
       title: note.title,
       body: note.body,
     });
-  }
+  };
 
   const updateNote = async (e) => {
     e.preventDefault();
@@ -124,7 +124,9 @@ function App() {
       title: "",
       body: "",
     });
-  }
+  };
+
+
   return (
     <>
       <h1>Hi Crud</h1>
@@ -133,13 +135,13 @@ function App() {
       <div className='m-10'>
         {/* create */}
         {
-          !updateForm._id && (
+          !store.updateForm._id && (
             <div className="">
-              <h2>Create Note</h2>
+              <h2 className='text-black bg-lime-400 text-2xl m-5'>Create Note</h2>
               {/* using updateCreateFormField # tag-7 */}
               <form action="" onSubmit={store.createNote} className='flex flex-col gap-2'>
-                <input value={store.createForm.title} onChange={store.updateCreateFormField} type="text" name='title' />
-                <textarea value={store.createForm.body} onChange={store.updateCreateFormField} type="text" name='body' />
+                <input value={store.createForm.title} onChange={store.updateCreateFormField} type="text" name='title' placeholder='Title' className='p-5'/>
+                <textarea value={store.createForm.body} onChange={store.updateCreateFormField} type="text" name='body' placeholder='Body' className='p-5'/>
                 <button type='submit'>Add note</button>
               </form>
 
@@ -160,12 +162,12 @@ function App() {
       {/* udpate */}
 
       {
-        updateForm._id && (
+        store.updateForm._id && (
           <div className="m-10">
-            <h2>Update note</h2>
-            <form action="" onSubmit={updateNote} className='flex flex-col gap-2'>
-              <input value={updateForm.title} onChange={handleUpdateFieldChange} type="text" name='title' />
-              <textarea value={updateForm.body} onChange={handleUpdateFieldChange} name="body" id="body"></textarea>
+            <h2 className='text-black bg-red-400 text-2xl m-5'>Update note</h2>
+            <form action="" onSubmit={store.updateNote} className='flex flex-col gap-2'>
+              <input value={store.updateForm.title} onChange={store.handleUpdateFieldChange} type="text" name='title' className='p-5' />
+              <textarea value={store.updateForm.body} onChange={store.handleUpdateFieldChange} name="body" id="body" className='p-5'/>
               <button type='submit'>Update note</button>
             </form>
           </div>
@@ -186,7 +188,7 @@ function App() {
               {/* using deleteNote function # tag-10 */}
               <div className="flex gap-3">
                 <button onClick={() => store.deleteNote(note._id)}>Delete</button>
-                <button onClick={() => toggleUpdate(note)}>Update note</button>
+                <button onClick={() => store.toggleUpdate(note)}>Update note</button>
               </div>
             </div>
           ))
