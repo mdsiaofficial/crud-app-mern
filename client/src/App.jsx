@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react'
 import axios from 'axios';
 import './App.css'
 import Notes from './components/Notes';
+import notesStore from './stores/notesStore';
 
 // const notesRoute = "http://localhost:3000/notes";
 function App() {
+  const store = notesStore();
   const [notes, setNotes] = useState(null);
 
   // to replace create input field
@@ -31,7 +33,7 @@ function App() {
 
   // useEffect # tag-2
   useEffect(() => {
-    fetchNotes();
+    store.fetchNotes();
   }, []);
 
   // update form - not using # tag-3
@@ -174,8 +176,8 @@ function App() {
       {/* notes */}
       <div className="border-2 min-w-[1080px] bg-slate-600 p-10">
         {
-          notes &&
-          notes.map((note) => (
+          store.notes &&
+          store.notes.map((note) => (
             <div key={note._id} className='flex items-center justify-between m-4 p-2 border'>
               <div className="flex flex-col items-start" >
                 <h3 className='text-3xl'>{note.title}</h3>
