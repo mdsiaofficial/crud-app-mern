@@ -28,7 +28,7 @@ connectToDb();
 app.get("/", home);
 // notes //
 app.get("/notes", fetchNotes);
-// new notes //
+// create new notes //
 app.post("/notes", createNote);
 // find specific note //
 app.get("/notes/:id", findNote);
