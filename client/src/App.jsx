@@ -62,7 +62,7 @@ function App() {
 
     // clear state # tag-6
     setCreateForm({ title: "", body: "" });
-  }
+  };
 
   // delete note # tag-9
   const deleteNote = async (_id) => {
@@ -72,7 +72,7 @@ function App() {
     // update state
     const newNote = [...notes].filter((note) => (note._id !== _id));
     setNotes(newNote);
-  }
+  };
 
   const handleUpdateFieldChange = async (e) => {
     e.preventDefault();
@@ -137,9 +137,9 @@ function App() {
             <div className="">
               <h2>Create Note</h2>
               {/* using updateCreateFormField # tag-7 */}
-              <form action="" onSubmit={createNote} className='flex flex-col gap-2'>
-                <input value={createForm.title} onChange={updateCreateFormField} type="text" name='title' />
-                <textarea value={createForm.body} onChange={updateCreateFormField} type="text" name='body' />
+              <form action="" onSubmit={store.createNote} className='flex flex-col gap-2'>
+                <input value={store.createForm.title} onChange={store.updateCreateFormField} type="text" name='title' />
+                <textarea value={store.createForm.body} onChange={store.updateCreateFormField} type="text" name='body' />
                 <button type='submit'>Add note</button>
               </form>
 
@@ -185,7 +185,7 @@ function App() {
               </div>
               {/* using deleteNote function # tag-10 */}
               <div className="flex gap-3">
-                <button onClick={() => deleteNote(note._id)}>Delete</button>
+                <button onClick={() => store.deleteNote(note._id)}>Delete</button>
                 <button onClick={() => toggleUpdate(note)}>Update note</button>
               </div>
             </div>
