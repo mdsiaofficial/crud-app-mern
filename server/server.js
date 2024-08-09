@@ -8,7 +8,7 @@ if (process.env.NODE_ENV != "production") {
 // import deps # tag-2
 const express = require("express");
 const connectToDb = require("./config/connectToDb.js");
-const Note = require("./models/note.model.js");
+// const Note = require("./models/note.model.js");
 const { home, fetchNotes, createNote, findNote, updateNote, deleteNote } = require("./controllers/notes.controller.js");
 const cors = require("cors");
 
@@ -16,6 +16,7 @@ const cors = require("cors");
 const app = express();
 // config express # tag-4
 app.use(express.json());
+// cross origin request
 app.use(cors());
 
 // connect  to db # tag-5
