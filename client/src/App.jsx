@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import './App.css'
+import Notes from './components/Notes';
 
 // const notesRoute = "http://localhost:3000/notes";
 function App() {
@@ -104,14 +105,14 @@ function App() {
     e.preventDefault();
     const { title, body } = updateForm;
     //  send update req
-    axios.put(`http://localhost:3000/notes/${updateForm._id}`, {title:title, body:body});
+    axios.put(`http://localhost:3000/notes/${updateForm._id}`, { title: title, body: body });
     // update state
     // console.log(res.data);
     const newNotes = [...notes];
     console.log(newNotes);
     const noteIndex = newNotes.findIndex((note) => (note._id === updateForm._id));
     console.log(noteIndex);
-    newNotes[noteIndex] = {title: title, body: body};
+    newNotes[noteIndex] = { title: title, body: body };
     console.log(newNotes);
     setNotes(newNotes);
 
@@ -125,7 +126,10 @@ function App() {
   return (
     <>
       <h1>Hi Crud</h1>
+
+
       <div className='m-10'>
+        {/* create */}
         {
           !updateForm._id && (
             <div className="">
@@ -167,7 +171,7 @@ function App() {
       }
 
 
-      {/*  list */}
+      {/* notes */}
       <div className="border-2 min-w-[1080px] bg-slate-600 p-10">
         {
           notes &&
@@ -186,7 +190,6 @@ function App() {
           ))
         }
       </div>
-
 
 
     </>
