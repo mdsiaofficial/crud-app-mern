@@ -21,6 +21,10 @@ const requireAuth = async (req, res, next) => {
     //   iat: 1723314705 [issued at time]
     // }
 
+    // CHECK EXPIRATION
+    if (Date.now() > decodedToken.exp) {
+      return res.status(401).json({ message: "Expiration timeout!" });
+    }
     // find user using decoded part
     const user = await User.findById(decodedToken.sub);
     if (!user) {

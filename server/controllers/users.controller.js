@@ -41,7 +41,8 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
     // create new jwt
-    const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;
+    const exp = Date.now() + 1000 * 60 * 60 * 24 * 30; //30 days
+    // const exp = Date.now() + 1000 * 10; //10 sec // for test
     const token = jwt.sign({ sub: user._id, exp: exp }, process.env.SECRET);
 
     // set the cookie
@@ -60,12 +61,28 @@ const login = async (req, res) => {
     
   }
 }
-const logout = (req,res) => {}
+const logout = async (req, res) => {
+  try {
+    // clear the cookie
+    res.clearCookie("Authorization");
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.error('Logout error: ', error);
+    res.status(400).json({ message: "Logout Error" });
+    
+  }
+}
 
 
 const checkAuth = (req, res) => {
-  console.log(req.user);
-  res.status(200).json({ message: "all ok!" });
+  try {
+    console.log(req.user);
+    res.status(200).json({ message: "all ok!" });
+  } catch (error) {
+    console.error('Check Auth error: ', error);
+    res.status(400).json({ message: "Check auth Error" });
+    
+  }
 }
 
 module.exports = { signup, login, logout, checkAuth };
