@@ -10,6 +10,7 @@ const express = require("express");
 const connectToDb = require("./config/connectToDb.js");
 // const Note = require("./models/note.model.js");
 const { home, fetchNotes, createNote, findNote, updateNote, deleteNote } = require("./controllers/notes.controller.js");
+const { signup, login, logout } = require("./controllers/users.controller.js");
 const cors = require("cors");
 
 // create express app instance # tag-3
@@ -25,6 +26,11 @@ connectToDb();
 // middleware
 
 // routing // # tag-6
+// signup
+app.post("/signup", signup);
+app.post("/login", login);
+app.get("/logout", logout);
+
 // home //
 app.get("/", home);
 // notes //
