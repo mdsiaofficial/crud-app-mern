@@ -10,15 +10,19 @@ const express = require("express");
 const connectToDb = require("./config/connectToDb.js");
 // const Note = require("./models/note.model.js");
 const { home, fetchNotes, createNote, findNote, updateNote, deleteNote } = require("./controllers/notes.controller.js");
-const { signup, login, logout } = require("./controllers/users.controller.js");
+const { signup, login, logout, checkAuth } = require("./controllers/users.controller.js");
 const cors = require("cors");
-
+const cookieParser = require("cookie-parser");
+const requireAuth = require("./middleware/requireAuth.js");
 // create express app instance # tag-3
 const app = express();
 // config express # tag-4
 app.use(express.json());
 // cross origin request
 app.use(cors());
+app.use(cookieParser());
+
+
 
 // connect  to db # tag-5
 connectToDb();
@@ -30,6 +34,7 @@ connectToDb();
 app.post("/signup", signup);
 app.post("/login", login);
 app.get("/logout", logout);
+app.get("/check-auth", requireAuth, checkAuth);
 
 // home //
 app.get("/", home);
