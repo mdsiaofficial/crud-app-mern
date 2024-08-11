@@ -1,35 +1,39 @@
 
-import { useEffect, useState } from 'react'
-import axios from 'axios';
 import './App.css'
-import Notes from './components/Notes';
-import notesStore from './stores/notesStore';
-import UpdateForm from './components/UpdateForm';
-import CreateForm from './components/CreateForm';
+import LoginPage from './pages/LoginPage';
+import NotesPage from './pages/NotesPage';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-// const notesRoute = "http://localhost:3000/notes";
 function App() {
-  const store = notesStore();
-  // useEffect # tag-2
-  useEffect(() => {
-    store.fetchNotes();
-  }, [store]);
-
-
-
 
   return (
     <>
-      <h1>Hi Crud</h1>
+      <BrowserRouter>
+        
+        <div className='m-5'>
+          <h1 className='m-5'>Hi Crud</h1>
+          <ul className='flex items-center justify-center gap-5 ring-1 p-4'>
+            <li>
+              <Link to={`/`}>Home</Link>
+            </li>
+            <li>
+              <Link to={`/login`}>Login</Link>
+            </li>
+            <li>
+              <Link to={`/signup`}>Sign Up</Link>
+            </li>
+            <li>
+              <Link to={`/logout`}>Logout</Link>
+            </li>
+          </ul>
+        </div>
 
-      {/* create */}
-      <CreateForm />
 
-      {/* udpate */}
-      <UpdateForm />
-
-      {/* notes */}
-      <Notes />
+        <Routes>
+          <Route index element={<NotesPage />} />
+          <Route path='/login' element={<LoginPage />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

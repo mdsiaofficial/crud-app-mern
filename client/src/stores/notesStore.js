@@ -13,12 +13,14 @@ const notesStore = create((set) => ({
     title: "",
     body: "",
   },
+  // 
   fetchNotes: async () => {
-    const res = await axios.get("http://localhost:3000/notes")
+    const res = await axios.get("/notes")
     set({
       notes: res.data.notes,
     });
   },
+  // 
   updateCreateFormField: (e) => {
     // console.log("form update");
     const { name, value } = e.target;
@@ -30,11 +32,12 @@ const notesStore = create((set) => ({
     }));
     // console.log("update: ", createForm);
   },
+  // 
   createNote: async (e) => {
     e.preventDefault();
     const { createForm, notes } = notesStore.getState();
 
-    const res = await axios.post("http://localhost:3000/notes", createForm);
+    const res = await axios.post("/notes", createForm);
 
     set({
       notes: [...notes, res.data.note],
@@ -45,10 +48,11 @@ const notesStore = create((set) => ({
     });
     console.log(res);
   },
+  // 
   deleteNote: async (_id) => {
     const { notes } = notesStore.getState();
     // delete note
-    const res = await axios.delete(`http://localhost:3000/notes/${_id}`);
+    const res = await axios.delete(`/notes/${_id}`);
     // update state
     const newNote = notes.filter((note) => (note._id !== _id));
     set({
@@ -56,6 +60,7 @@ const notesStore = create((set) => ({
     });
 
   },
+  // 
   handleUpdateFieldChange: async (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -67,6 +72,7 @@ const notesStore = create((set) => ({
     }));
 
   },
+  // 
   toggleUpdate: (note) => {
     // get current note
     // console.log(note);
@@ -79,13 +85,14 @@ const notesStore = create((set) => ({
       },
     });
   },
+  // 
   updateNote: async (e) => {
     e.preventDefault();
     const { updateForm, notes } = notesStore.getState();
     const { title, body, _id } = updateForm;
 
     //  send update req
-    axios.put(`http://localhost:3000/notes/${_id}`, { title: title, body: body });
+    axios.put(`/notes/${_id}`, { title: title, body: body });
     // update state
     // console.log(res.data);
     const newNotes = [...notes];
@@ -103,7 +110,6 @@ const notesStore = create((set) => ({
       },
     });
   }
-
 
 }));
 export default notesStore;
