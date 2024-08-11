@@ -6,7 +6,7 @@ const LoginForm = () => {
 
   return (
     <div className='m-5'>
-      <form action="" className='flex flex-col gap-4'>
+      <form onSubmit={store.login} action="" className='flex flex-col gap-4'>
         <input
           onChange={store.updateLoginForm}
           value={store.loginForm.email}

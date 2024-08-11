@@ -1,5 +1,6 @@
 
 import './App.css'
+import RequireAuth from './components/RequireAuth';
 import LoginPage from './pages/LoginPage';
 import NotesPage from './pages/NotesPage';
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
@@ -9,7 +10,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        
+
         <div className='m-5'>
           <h1 className='m-5'>Hi Crud</h1>
           <ul className='flex items-center justify-center gap-5 ring-1 p-4'>
@@ -30,8 +31,19 @@ function App() {
 
 
         <Routes>
-          <Route index element={<NotesPage />} />
-          <Route path='/login' element={<LoginPage />} />
+          <Route
+            index
+            element={
+              <RequireAuth>
+                <NotesPage />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path='/login'
+            element={<LoginPage />}
+          />
         </Routes>
       </BrowserRouter>
     </>
