@@ -40,11 +40,13 @@ const login = async (req, res) => {
     if (!passMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    // create new jwt
+    // create new jwt --------1sec-60sec-60min-24h-30d
     const exp = Date.now() + 1000 * 60 * 60 * 24 * 30; //30 days
     // const exp = Date.now() + 1000 * 10; //10 sec // for test
     const token = jwt.sign({ sub: user._id, exp: exp }, process.env.SECRET);
-
+    // token should look something like this: //
+    // [eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmI3NGUyOWRhMjIyMzU2MTA5YmZmZTUiLCJleHAiOjE3MjU5MDY3MDU4NjEsImlhdCI6MTcyMzMxNDcwNX0.kJ_FQc09p_yLnUu7rHVHllxWBqGwJ_is-3LUlq4C5cU]
+    
     // set the cookie
     res.cookie("Authorization", token, {
       expires: new Date(exp),
