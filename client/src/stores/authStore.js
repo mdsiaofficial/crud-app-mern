@@ -11,6 +11,11 @@ const authStore = create((set) => ({
     password: ""
   },
 
+  signupForm: {
+    email: "",
+    password: ""
+  },
+
   updateLoginForm: (e) => {
     const { name, value } = e.target;
     set((state) => (
@@ -23,25 +28,62 @@ const authStore = create((set) => ({
     ))
   },
 
+  updateSignupForm: (e) => {
+    const { name, value } = e.target;
+    set((state) => (
+      {
+        signupForm: {
+          ...state.signupForm,
+          [name]: value
+        }
+      }
+    ))
+  },
+
   login: async (e) => {
-    e.preventDefault();
+
     const { loginForm } = authStore.getState();
     const res = await axios.post("/login", loginForm, { withCredentials: true });
     set({
       loggedIn: true,
-    })
+      loginForm: {
+        email: "",
+        password: "",
+      }
+    });
+    
     console.log(res);
+  },
+
+  signup: async (e) => {
+    const { signupForm } = authStore.getState();
+    console.log(`signup`);
+    const res = await axios.post("/signup", signupForm, { withCredentials: true });
+
+    set({
+      signupForm: {
+        email: "",
+        password: "",
+      }
+    });
+    console.log(res);
+
   },
 
   checkAuth: async () => {
     try {
-      await axios.get("/check-auth");
+      await axios.get("/check-auth", { withCredentials: true });
       set({ loggedIn: true });
 
     } catch (error) {
-      console.error('', error);
+      console.error('error: ', error);
       set({ loggedIn: false });
     }
+  },
+
+  logout: async () => {
+    await axios.get("/logout", { withCredentials: true });
+    set({ loggedIn: false });
 
   }
 

@@ -42,15 +42,15 @@ app.get("/check-auth", requireAuth, checkAuth);
 // home //
 app.get("/", home);
 // notes //
-app.get("/notes", fetchNotes);
+app.get("/notes", requireAuth, fetchNotes);
 // create new notes //
-app.post("/notes", createNote);
+app.post("/notes", requireAuth, createNote);
 // find specific note //
-app.get("/notes/:id", findNote);
+app.get("/notes/:id", requireAuth, findNote);
 // update
-app.put(("/notes/:id"), updateNote);
+app.put(("/notes/:id"), requireAuth, updateNote);
 // delete
-app.delete(("/notes/:id"), deleteNote);
+app.delete(("/notes/:id"), requireAuth, deleteNote);
 
 // start server # tag-7
 app.listen(process.env.PORT, () => {
