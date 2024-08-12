@@ -10,7 +10,7 @@ const fetchNotes = async (req, res) => {
   try {
     console.log("Notes here...");
     // find the notes # tag-9
-    const notes = await Note.find();
+    const notes = await Note.find({user: req.user._id});
     // res.status(201).send("Notes here...");
     res.status(201).json({ notes: notes });
 
@@ -28,6 +28,7 @@ const createNote = async (req, res) => {
     const newNote = await Note.create({
       title,
       body,
+      user: req.user._id // attach user to the note # tag-11
     });
     console.log(newNote);
     // 3 - res with new note
@@ -44,7 +45,7 @@ const findNote = async (req, res) => {
     // get id off the url
     const noteId = req.params.id;
     // find the note using if
-    const note = await Note.findById(noteId);
+    const note = await Note.findOne({_id:noteId, user: req.user._id});
     // res the note
     res.status(202).json({
       note: note
@@ -60,9 +61,10 @@ const updateNote = async (req, res) => {
     const noteId = req.params.id;
     const { title, body } = req.body;
     // find and update # tag-11
-    const note = await Note.findByIdAndUpdate(noteId, {
+    const note = await Note.findOneAndUpdate({_id:noteId,user: req.user._id}, {
       title: title,
-      body: body
+      body: body,
+      user: req.user._id // attach user to the note # tag-11
     }, { new: true }); // way 1 - cmd here to replace the old one
   
     console.log(note);
@@ -84,7 +86,7 @@ const deleteNote = async (req, res) => {
     const noteId = req.params.id;
   
     // find and delete # tag-13
-    await Note.deleteOne({ _id: noteId }); 
+    await Note.deleteOne({ _id: noteId, user: req.user._id }); 
     // res
     res.status(202).json({ message: "deleted" });
   } catch (error) {

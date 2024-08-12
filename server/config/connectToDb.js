@@ -1,7 +1,3 @@
-// load env var
-if (process.env.NODE_ENV != "production") {
-  require("dotenv").config();
-}
 const mongoose = require("mongoose");
 const connectToDb = async () => {
   // Connect to your MongoDB database here # tag-14
