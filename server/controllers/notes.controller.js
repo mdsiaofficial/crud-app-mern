@@ -6,7 +6,6 @@ const home = (req, res) => {
 }
 
 const fetchNotes = async (req, res) => {
-
   try {
     console.log("Notes here...");
     // find the notes # tag-9
