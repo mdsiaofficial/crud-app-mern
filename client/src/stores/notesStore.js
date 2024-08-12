@@ -4,15 +4,18 @@ import { create } from 'zustand';
 
 const notesStore = create((set) => ({
   notes: null,
+
   createForm: {
     title: "",
     body: "",
   },
+
   updateForm: {
     _id: null,
     title: "",
     body: "",
   },
+
   // 
   fetchNotes: async () => {
     const res = await axios.get("/notes")
@@ -20,6 +23,7 @@ const notesStore = create((set) => ({
       notes: res.data.notes,
     });
   },
+
   // 
   updateCreateFormField: (e) => {
     // console.log("form update");
@@ -32,6 +36,7 @@ const notesStore = create((set) => ({
     }));
     // console.log("update: ", createForm);
   },
+  
   // 
   createNote: async (e) => {
     e.preventDefault();
