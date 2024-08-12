@@ -20,7 +20,8 @@ const app = express();
 app.use(express.json());
 // cross origin request
 app.use(cors({
-  origin: true,
+  // origin: true,
+  origin: ["https://crud-app-mern-olive.vercel.app/"],
   credentials:true,
 }));
 app.use(cookieParser());
