@@ -1,17 +1,15 @@
 {
-  "version":1,
-  "name":"crud-app-mern",
-  "description":"A full-stack MERN application with CRUD operations",
+  "version": 2,
   "builds": [
     {
-      "src": "*.js", 
+      "src": "server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "*.js",
-      "dest": "/"
+      "src": "/(.*)",
+      "dest": "server.js"
     }
   ]
 }

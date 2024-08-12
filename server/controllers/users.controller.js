@@ -9,6 +9,13 @@ const signup = async (req, res) => {
   try {
     // get email and password
     const { email, password } = req.body;
+
+    // check if user exists
+    // const user = await User.findOne({ email: email });
+    // if (user) {
+    //   return res.status(401).json({ message: "User exists. Please login." });
+    // }
+
     // hash pass
     const hashedPass = bcrypt.hashSync(password, 8);
     // create user
@@ -23,6 +30,7 @@ const signup = async (req, res) => {
   }
 
 }
+
 const login = async (req, res) => {
   try {
     // get email and pass
@@ -40,6 +48,7 @@ const login = async (req, res) => {
     if (!passMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
+    
     // create new jwt --------1sec-60sec-60min-24h-30d
     const exp = Date.now() + 1000 * 60 * 60 * 24 * 30; //30 days
     // const exp = Date.now() + 1000 * 10; //10 sec // for test

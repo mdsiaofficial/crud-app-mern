@@ -21,12 +21,10 @@ app.use(express.json());
 // cross origin request
 app.use(cors({
   // origin: true,
-  origin: ["https://crud-app-mern-olive.vercel.app/"],
+  origin: ["https://crud-app-mern-olive.vercel.app"],
   credentials:true,
 }));
 app.use(cookieParser());
-
-
 
 // connect  to db # tag-5
 connectToDb();
@@ -54,6 +52,6 @@ app.put(("/notes/:id"), requireAuth, updateNote);
 app.delete(("/notes/:id"), requireAuth, deleteNote);
 
 // start server # tag-7
-app.listen(process.env.PORT, () => {
-  console.log("Server is running...3000");
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server is running...");
 });
