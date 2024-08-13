@@ -19,7 +19,11 @@ const app = express();
 // config express # tag-4
 app.use(express.json());
 // cross origin request
-app.use(cors('*'));
+const corsOptions = {
+  origin: 'https://crud-app-mern-olive.vercel.app', // Replace with your client's URL
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 // connect  to db # tag-5
