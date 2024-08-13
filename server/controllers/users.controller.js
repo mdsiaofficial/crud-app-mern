@@ -57,11 +57,17 @@ const login = async (req, res) => {
     // [eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmI3NGUyOWRhMjIyMzU2MTA5YmZmZTUiLCJleHAiOjE3MjU5MDY3MDU4NjEsImlhdCI6MTcyMzMxNDcwNX0.kJ_FQc09p_yLnUu7rHVHllxWBqGwJ_is-3LUlq4C5cU]
     
     // set the cookie
+    // Set a cookie named "Authorization" with the provided token as the value. 
+    // The cookie will expire after 30 days.
+    // The cookie will only be accessible via HTTP (not HTTPS), and will not be accessible via JavaScript.
+    // The cookie will be sent with requests to the same domain and its subdomains.
+    // If the environment is set to "production", the cookie will only be sent with HTTPS requests.
     res.cookie("Authorization", token, {
       expires: new Date(exp),
-      httpOnly: true,
+      // httpOnly: true,
       sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
+      secure: true, // access with https also
+      // secure: process.env.NODE_ENV === "production",
     });
 
     // send jwt to client
