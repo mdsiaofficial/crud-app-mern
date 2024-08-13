@@ -21,8 +21,8 @@ app.use(express.json());
 // cross origin request
 app.use(cors({
   // origin: true,
-  // origin: ["https://crud-app-mern-olive.vercel.app"],
-  origin: ["https://crud-app-mern-chw5.onrender.com"],
+  origin: ["https://crud-app-mern-olive.vercel.app"],
+  // origin: ["https://crud-app-mern-chw5.onrender.com"],
   credentials:true,
 }));
 app.use(cookieParser());

@@ -64,7 +64,7 @@ const login = async (req, res) => {
     // If the environment is set to "production", the cookie will only be sent with HTTPS requests.
     res.cookie("Authorization", token, {
       expires: new Date(exp),
-      // httpOnly: true,
+      httpOnly: true,
       sameSite: "lax",
       secure: true, // access with https also
       // secure: process.env.NODE_ENV === "production",
