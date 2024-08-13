@@ -19,7 +19,7 @@ const app = express();
 // config express # tag-4
 app.use(express.json());
 // cross origin request
-app.use(cors());
+app.use(cors('*'));
 app.use(cookieParser());
 
 // connect  to db # tag-5
